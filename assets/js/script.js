@@ -56,3 +56,23 @@ daySchedule.forEach(function(hourBlock, index) {
     // append the hourFormat to the rows based on variable criteria
     $(".container").append(hourFormat);
 });
+// save updated time block to localStorage when save button is clicked
+$(".saveBtn").on("click", function(event) {
+
+    // variable to select correct block id
+    let blockID = parseInt($(this).closest(".time-block").attr("id"));
+
+    // variable to select entry in selected block
+    let userEntry = $.trim($(this).parent().siblings("textarea").val());
+
+    // save to daySchedule array
+    daySchedule[blockID].event = userEntry;
+
+    // save to local storage
+    localStorage.setItem("savedSchedule", JSON.stringify(daySchedule));
+});
+
+// show the current day and time in the header
+$("#currentDay").text(moment().format("dddd, MMMM Do"));
+
+consoleMessage();
